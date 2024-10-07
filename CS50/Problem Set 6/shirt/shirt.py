@@ -1,5 +1,5 @@
 import sys
-import csv
+from PIL import Image 
 
 
 def main():
@@ -13,12 +13,22 @@ def main():
             raise Exception('Too few command-line arguments')
         if len(sys.argv) > 3:
             raise Exception('Too many command-line arguments')
-
+        extensions = ["jpg", "jpeg", "png"]
+        before = sys.argv[1]
+        after = sys.argv[2]
         # Check if the provided file is a CSV file
-        if sys.argv[1].split('.')[-1] != 'csv':
-            raise Exception('Not a CSV file')
+        if before.split('.')[-1] not in extensions or after.split('.')[-1] not in extensions:
+            raise Exception('Invalid input')
+        
+        if before.split('.')[-1] != after.split('.')[-1]:
+            raise Exception('Input and output have different extensions')
+        
+        with Image.open(before) as im:
+            with Image.open("shirt.png") as im2:
+                Image.Image.paste(im, im2, (200,200))
+            im.show()
 
-        students = []
+        """ students = []
         # Open the CSV file and read its content
         with open(sys.argv[1], 'r') as file:
             # reading csv file
@@ -32,7 +42,7 @@ def main():
             writer.writerow(["first", "last", "house"])
             for student in students:
                 writer.writerow([student["first"], student["last"], student["house"]])
-
+        """
 
 
 
