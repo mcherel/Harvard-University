@@ -1,6 +1,7 @@
 import sys
 import csv
 from tabulate import tabulate
+# pip install tabulate
 
 def main():
     try:
